@@ -1,0 +1,5 @@
+wrist_frame: bort
+wrist_joints: ["a", "b", "c"]
+wrist_joint_transform: [1, 0, 0,
+                        0, 1, 0,
+                        0, 0, 1]
