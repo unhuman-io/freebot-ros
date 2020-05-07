@@ -8,7 +8,8 @@
 #include <memory>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
-std::shared_ptr<ros::Publisher> joint_pub;
+//std::shared_ptr<ros::Publisher> joint_pub;
+ros::Publisher *joint_pub;
 std::shared_ptr<ros::NodeHandle> node_handle;
 
 void processFeedback(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback) {
@@ -37,12 +38,15 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "wrist_marker");
     interactive_markers::InteractiveMarkerServer server("wrist_marker_server");
 
-    node_handle.reset(new ros::NodeHandle);
+    node_handle.reset(new ros::NodeHandle("~"));
     ros::NodeHandle &n = *node_handle;
     //node_handle = make_shared<ros::NodeHandle>{);
     std::string s;
-    n.getParam("wrist_frame", s);
-    s = "wrist_marker";
+    if (!n.getParam("wrist_frame", s)) {
+        s = "wrist_frame";
+    }
+    ROS_INFO("Got parameter : %s", s.c_str());
+    //s = "wrist_marker";
     visualization_msgs::InteractiveMarker int_marker;
     int_marker.header.frame_id = s;
     int_marker.header.stamp = ros::Time::now();
@@ -78,7 +82,7 @@ int main(int argc, char** argv) {
     server.applyChanges();
     
     auto pub = n.advertise<sensor_msgs::JointState>("joint_states", 1);
-    joint_pub.reset(&pub);
+    joint_pub = &pub;
 
     ros::spin();
 }
