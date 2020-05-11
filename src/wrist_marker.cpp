@@ -12,9 +12,23 @@
 ros::Publisher *joint_pub;
 std::shared_ptr<ros::NodeHandle> node_handle;
 
+void sendJoint(std::vector<double> angles) {
+    sensor_msgs::JointState joint_state;
+    
+    angles.push_back(0);
+    joint_state.position = angles;
+    joint_state.header.stamp = ros::Time::now();
+    static int count = 1;
+    joint_state.header.seq = count++;
+    joint_pub->publish(joint_state); 
+}
+
 void processFeedback(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback) {
     Eigen::MatrixXd wrist_joint_transform(3,3);
     wrist_joint_transform.setIdentity();
+    wrist_joint_transform << 1, 0, 0,
+                            0, -1, 0,
+                            0, 0, 1;
     tf2::Quaternion orientation;
     geometry_msgs::Quaternion quat_msg = feedback->pose.orientation;
     tf2::convert(quat_msg, orientation);
@@ -22,16 +36,11 @@ void processFeedback(const visualization_msgs::InteractiveMarkerFeedbackConstPtr
     auto orientation_matrix = tf2::Matrix3x3(orientation);
     double roll, pitch, yaw; 
     orientation_matrix.getRPY(roll, pitch, yaw);
+    std::cout << roll << " " << pitch << " " << yaw << std::endl;
     Eigen::Vector3d orientation_rpy(roll,pitch,yaw);
     Eigen::VectorXd joint_values = wrist_joint_transform * orientation_rpy;
-    sensor_msgs::JointState joint_state;
-    joint_state.name = {"a","b","c"};
     std::vector<double> data(joint_values.data(), joint_values.data() + joint_values.size());
-    joint_state.position = data;
-    joint_state.header.stamp = ros::Time::now();
-    static int count = 0;
-    joint_state.header.seq = count++;
-    joint_pub->publish(joint_state); 
+    sendJoint(data);
 }
 
 int main(int argc, char** argv) {
@@ -39,7 +48,7 @@ int main(int argc, char** argv) {
     interactive_markers::InteractiveMarkerServer server("wrist_marker_server");
 
     node_handle.reset(new ros::NodeHandle("~"));
-    ros::NodeHandle &n = *node_handle;
+    ros::NodeHandle &n = *node_handle; //ros::NodeHandle("~");
     //node_handle = make_shared<ros::NodeHandle>{);
     std::string s = "wrist_frame";
     n.getParam("wrist_frame", s);
@@ -60,6 +69,7 @@ int main(int argc, char** argv) {
     rotate_control.orientation.z = 0;
     rotate_control.name = "rotate_x";
     rotate_control.interaction_mode = visualization_msgs::InteractiveMarkerControl::ROTATE_AXIS;
+    rotate_control.orientation_mode = visualization_msgs::InteractiveMarkerControl::INHERIT;
     int_marker.controls.push_back(rotate_control);
 
     rotate_control.orientation.w = 1;
@@ -81,8 +91,11 @@ int main(int argc, char** argv) {
     server.insert(int_marker, &processFeedback);
     server.applyChanges();
     
-    auto pub = n.advertise<sensor_msgs::JointState>("joint_states", 1);
+    ros::NodeHandle n_pub = ros::NodeHandle("~");
+    auto pub = n_pub.advertise<sensor_msgs::JointState>("joint_states", 1, true);
     joint_pub = &pub;
+
+    sendJoint(std::vector<double>(3,0));
 
     ros::spin();
 }

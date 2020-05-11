@@ -1,0 +1,5 @@
+<launch>
+    <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui">
+        <rosparam param="source_list">["wrist_marker/joint_states"]</rosparam>
+    </node>
+</launch>
