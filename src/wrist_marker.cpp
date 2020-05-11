@@ -14,8 +14,7 @@ std::shared_ptr<ros::NodeHandle> node_handle;
 
 void sendJoint(std::vector<double> angles) {
     sensor_msgs::JointState joint_state;
-    
-    angles.push_back(0);
+    joint_state.name = {"distal_wrist_joint", "proximal_wrist_joint", "tool_rotate_joint"};
     joint_state.position = angles;
     joint_state.header.stamp = ros::Time::now();
     static int count = 1;

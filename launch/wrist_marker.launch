@@ -1,4 +1,10 @@
 <launch>
+    <node name="wrist_marker" pkg="unhuman-ros" type="wrist_marker">
+        <param name="wrist_frame" value="wrist_frame" />
+        <param name="scale" value="0.05" />
+    </node>
+    <node name="wrist_frame" pkg="tf2_ros" type="static_transform_publisher" 
+        args="0 0 .55 0 0 0 world wrist_frame" />
     <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui">
         <rosparam param="source_list">["wrist_marker/joint_states"]</rosparam>
     </node>
