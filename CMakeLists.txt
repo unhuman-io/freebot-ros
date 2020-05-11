@@ -146,6 +146,10 @@ set_target_properties(${PROJECT_NAME}_joystick PROPERTIES OUTPUT_NAME joystick P
 add_dependencies(${PROJECT_NAME}_joystick ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_joystick ${catkin_LIBRARIES})
 
+add_executable(${PROJECT_NAME}_joint_to_actuator src/joint_to_actuator.cpp)
+set_target_properties(${PROJECT_NAME}_joint_to_actuator PROPERTIES OUTPUT_NAME joint_to_actuator PREFIX "")
+add_dependencies(${PROJECT_NAME}_joint_to_actuator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joint_to_actuator ${catkin_LIBRARIES})
 
 #############
 ## Install ##
