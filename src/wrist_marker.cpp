@@ -41,17 +41,17 @@ int main(int argc, char** argv) {
     node_handle.reset(new ros::NodeHandle("~"));
     ros::NodeHandle &n = *node_handle;
     //node_handle = make_shared<ros::NodeHandle>{);
-    std::string s;
-    if (!n.getParam("wrist_frame", s)) {
-        s = "wrist_frame";
-    }
-    ROS_INFO("Got parameter : %s", s.c_str());
-    //s = "wrist_marker";
+    std::string s = "wrist_frame";
+    n.getParam("wrist_frame", s);
+    double scale = .1;
+    n.getParam("scale", scale);
+
     visualization_msgs::InteractiveMarker int_marker;
     int_marker.header.frame_id = s;
     int_marker.header.stamp = ros::Time::now();
     int_marker.name = "wrist_marker";
     int_marker.description = "Orientation control";
+    int_marker.scale = scale;
     
     visualization_msgs::InteractiveMarkerControl rotate_control;
     rotate_control.orientation.w = 1;
