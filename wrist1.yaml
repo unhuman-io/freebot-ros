@@ -1,5 +1,7 @@
-wrist_frame: bort
-wrist_joints: ["a", "b", "c"]
-wrist_joint_transform: [1, 0, 0,
-                        0, 1, 0,
-                        0, 0, 1]
+joint_names: ["tool_rotate_joint", "proximal_wrist_joint", "distal_wrist_joint", "jaw_a_joint"]
+actuator_names: [m1, m2, m3, m4, m5]
+joint_actuator_position_transform: [1, 0, 0, 0,
+                        0, 1, 0, 0,
+                        0, 0, 1, 1,
+                        0, 0, 1, -1,
+                        0, 0, 0, 0]
