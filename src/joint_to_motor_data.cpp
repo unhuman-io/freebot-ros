@@ -4,6 +4,8 @@
 #include <motor_publisher.h>
 #include <sstream>
 
+struct cstr{ char s[100]; };
+
 class JointToActuator {
  public:
   JointToActuator();
@@ -12,7 +14,7 @@ class JointToActuator {
   void callback(const sensor_msgs::JointState::ConstPtr& joint_state);
 
   ros::NodeHandle nh_;
-  MotorPublisher motor_pub_ = {"wrist_commands"};
+  MotorPublisher<cstr> motor_pub_ = {"wrist_commands"};
   ros::Subscriber joint_sub_;
   std::vector<std::string> joint_names_ = {"tool_rotate_joint", "proximal_wrist_joint", "distal_wrist_joint", "jaw_a_joint"};
 };
@@ -23,6 +25,7 @@ JointToActuator::JointToActuator() {
   std::vector<double> actuator_transform;
   joint_sub_ = nh_.subscribe<sensor_msgs::JointState>("joint_states", 10, &JointToActuator::callback, this);
 }
+
 
 void JointToActuator::callback(const sensor_msgs::JointState::ConstPtr& joint_state) {
   sensor_msgs::JointState actuator_state;
@@ -37,7 +40,9 @@ void JointToActuator::callback(const sensor_msgs::JointState::ConstPtr& joint_st
   }
   std::ostringstream oss;
   oss << joint_position.transpose();
-  motor_pub_.publish(oss.str());
+  cstr tmp = {};
+  std::strncpy(tmp.s, oss.str().c_str(), sizeof(tmp));
+  motor_pub_.publish(tmp);
 }
 
 

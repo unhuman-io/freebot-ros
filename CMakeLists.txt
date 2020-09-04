@@ -161,10 +161,10 @@ set_target_properties(${PROJECT_NAME}_actuator_to_motor PROPERTIES OUTPUT_NAME a
 add_dependencies(${PROJECT_NAME}_actuator_to_motor ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_actuator_to_motor ${catkin_LIBRARIES} motor_manager)
 
-add_executable(${PROJECT_NAME}_motor_data_echo src/motor_data_echo.cpp)
-set_target_properties(${PROJECT_NAME}_motor_data_echo PROPERTIES OUTPUT_NAME motor_data_echo PREFIX "")
-add_dependencies(${PROJECT_NAME}_motor_data_echo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_motor_data_echo ${catkin_LIBRARIES} rt pthread)
+# add_executable(${PROJECT_NAME}_motor_data_echo src/motor_data_echo.cpp)
+# set_target_properties(${PROJECT_NAME}_motor_data_echo PROPERTIES OUTPUT_NAME motor_data_echo PREFIX "")
+# add_dependencies(${PROJECT_NAME}_motor_data_echo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# target_link_libraries(${PROJECT_NAME}_motor_data_echo ${catkin_LIBRARIES} rt pthread)
 
 find_package(realtime-rbdl PATHS /home/lee/unhuman/realtime-rbdl/build/artifacts)
 find_package(RBDL)
