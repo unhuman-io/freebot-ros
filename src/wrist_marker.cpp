@@ -14,7 +14,8 @@ std::shared_ptr<ros::NodeHandle> node_handle;
 
 void sendJoint(std::vector<double> angles) {
     sensor_msgs::JointState joint_state;
-    joint_state.name = {"distal_wrist_joint", "proximal_wrist_joint", "tool_rotate_joint"};
+    //joint_state.name = {"distal_wrist_joint", "proximal_wrist_joint", "tool_rotate_joint"};
+    joint_state.name = {"j2", "j3", "j1"};
     joint_state.position = angles;
     joint_state.header.stamp = ros::Time::now();
     static int count = 1;
@@ -25,8 +26,8 @@ void sendJoint(std::vector<double> angles) {
 void processFeedback(const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback) {
     Eigen::MatrixXd wrist_joint_transform(3,3);
     wrist_joint_transform.setIdentity();
-    wrist_joint_transform << 1, 0, 0,
-                            0, -1, 0,
+    wrist_joint_transform << -1, 0, 0,
+                            0, 1, 0,
                             0, 0, 1;
     tf2::Quaternion orientation;
     geometry_msgs::Quaternion quat_msg = feedback->pose.orientation;
