@@ -1,0 +1,5 @@
+<launch>
+    <node name="wrist" pkg="aliencontrol" type="aliencontrol">
+        <param name="cmd" value="echo bort; pwd" />
+    </node>
+</launch>
