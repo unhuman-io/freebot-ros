@@ -24,7 +24,8 @@ Joystick::Joystick() {
 
 void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
   sensor_msgs::JointState joint_state;
-  joint_state.name = {"tool_rotate_joint", "proximal_wrist_joint", "distal_wrist_joint", "jaw_a_joint"};
+  //joint_state.name = {"tool_rotate_joint", "proximal_wrist_joint", "distal_wrist_joint", "jaw_a_joint"};
+  joint_state.name = {"j1", "j2", "j3", "j4"};
   joint_state.header.stamp = ros::Time::now();
   joint_state.position.push_back(joy->axes[0]);
   joint_state.position.push_back(joy->axes[1]);

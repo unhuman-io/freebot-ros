@@ -7,7 +7,8 @@
         <arg name="n" value="command"/>
         <arg name="joint_publish" value="0"/>
     </include>
-    <include file="$(find unhuman-ros)/launch/wrist_marker.launch" ns="command"/>
+    <include file="$(find unhuman-ros)/launch/joystick.launch" ns="command"/>
+    <!-- <include file="$(find unhuman-ros)/launch/wrist_marker.launch" ns="command"/> -->
     <node name="joint_command" pkg="unhuman-ros" type="joint_to_motor_data" ns="command"/>
     <node name="wrist" pkg="aliencontrol" type="aliencontrol" cwd="node">
         <param name="cmd" value="../../unhuman/wrist/build/src/wrist" />
