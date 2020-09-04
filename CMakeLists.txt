@@ -151,10 +151,33 @@ set_target_properties(${PROJECT_NAME}_joint_to_actuator PROPERTIES OUTPUT_NAME j
 add_dependencies(${PROJECT_NAME}_joint_to_actuator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_joint_to_actuator ${catkin_LIBRARIES})
 
+add_executable(${PROJECT_NAME}_joint_to_motor_data src/joint_to_motor_data.cpp)
+set_target_properties(${PROJECT_NAME}_joint_to_motor_data PROPERTIES OUTPUT_NAME joint_to_motor_data PREFIX "")
+add_dependencies(${PROJECT_NAME}_joint_to_motor_data ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joint_to_motor_data ${catkin_LIBRARIES} rt pthread)
+
 add_executable(${PROJECT_NAME}_actuator_to_motor src/actuator_to_motor.cpp)
 set_target_properties(${PROJECT_NAME}_actuator_to_motor PROPERTIES OUTPUT_NAME actuator_to_motor PREFIX "")
 add_dependencies(${PROJECT_NAME}_actuator_to_motor ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_actuator_to_motor ${catkin_LIBRARIES} motor_manager)
+
+add_executable(${PROJECT_NAME}_motor_data_echo src/motor_data_echo.cpp)
+set_target_properties(${PROJECT_NAME}_motor_data_echo PROPERTIES OUTPUT_NAME motor_data_echo PREFIX "")
+add_dependencies(${PROJECT_NAME}_motor_data_echo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_motor_data_echo ${catkin_LIBRARIES} rt pthread)
+
+find_package(realtime-rbdl PATHS /home/lee/unhuman/realtime-rbdl/build/artifacts)
+find_package(RBDL)
+
+if(realtime-rbdl_FOUND AND rbdl_FOUND) 
+  add_executable(${PROJECT_NAME}_realtime src/realtime.cpp)
+  set_target_properties(${PROJECT_NAME}_realtime PROPERTIES OUTPUT_NAME realtime PREFIX "")
+  add_dependencies(${PROJECT_NAME}_realtime ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+  target_link_libraries(${PROJECT_NAME}_realtime ${catkin_LIBRARIES} realtime-rbdl rbdl)
+  target_include_directories(${PROJECT_NAME}_realtime PUBLIC ${RBDL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR})
+else()
+  message("Couldn't find realtime-rbdl or rbdl")
+endif()
 
 #############
 ## Install ##
