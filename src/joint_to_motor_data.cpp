@@ -16,7 +16,8 @@ class JointToActuator {
   ros::NodeHandle nh_;
   MotorPublisher<cstr> motor_pub_ = {"wrist_commands"};
   ros::Subscriber joint_sub_;
-  std::vector<std::string> joint_names_ = {"tool_rotate_joint", "proximal_wrist_joint", "distal_wrist_joint", "jaw_a_joint"};
+  //std::vector<std::string> joint_names_ = {"tool_rotate_joint", "proximal_wrist_joint", "distal_wrist_joint", "jaw_a_joint"};
+  std::vector<std::string> joint_names_ = {"j1", "j2", "j3", "j4"};
 };
 
 
