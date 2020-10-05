@@ -146,6 +146,21 @@ set_target_properties(${PROJECT_NAME}_joystick PROPERTIES OUTPUT_NAME joystick P
 add_dependencies(${PROJECT_NAME}_joystick ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_joystick ${catkin_LIBRARIES})
 
+add_executable(${PROJECT_NAME}_joystick_arm src/joystick_arm.cpp)
+set_target_properties(${PROJECT_NAME}_joystick_arm PROPERTIES OUTPUT_NAME joystick_arm PREFIX "")
+add_dependencies(${PROJECT_NAME}_joystick_arm ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joystick_arm ${catkin_LIBRARIES})
+
+add_executable(${PROJECT_NAME}_joystick_goal src/joystick_goal.cpp)
+set_target_properties(${PROJECT_NAME}_joystick_goal PROPERTIES OUTPUT_NAME joystick_goal PREFIX "")
+add_dependencies(${PROJECT_NAME}_joystick_goal ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joystick_goal ${catkin_LIBRARIES})
+
+add_executable(${PROJECT_NAME}_joystick_arm_task src/joystick_arm_task.cpp)
+set_target_properties(${PROJECT_NAME}_joystick_arm_task PROPERTIES OUTPUT_NAME joystick_arm_task PREFIX "")
+add_dependencies(${PROJECT_NAME}_joystick_arm_task ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joystick_arm_task ${catkin_LIBRARIES})
+
 add_executable(${PROJECT_NAME}_joint_to_actuator src/joint_to_actuator.cpp)
 set_target_properties(${PROJECT_NAME}_joint_to_actuator PROPERTIES OUTPUT_NAME joint_to_actuator PREFIX "")
 add_dependencies(${PROJECT_NAME}_joint_to_actuator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
