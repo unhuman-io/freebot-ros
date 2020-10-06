@@ -3,9 +3,6 @@
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose.h>
 #include <visualization_msgs/Marker.h>
-#include <tf2/LinearMath/Quaternion.h>
-#include "tf2_geometry_msgs/tf2_geometry_msgs.h"
-#include <tf2/convert.h>
 
 class ArmGoal {
  public:
@@ -40,9 +37,9 @@ void ArmGoal::goal_callback(const geometry_msgs::Pose::ConstPtr& pose) {
   // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
   marker.pose = *pose;
   // Set the scale of the marker -- 1x1x1 here means 1m on a side
-  marker.scale.x = .10;
-  marker.scale.y = .10;
-  marker.scale.z = .10;
+  marker.scale.x = .03;
+  marker.scale.y = .03;
+  marker.scale.z = .03;
   // Set the color -- be sure to set alpha to something non-zero!
   marker.color.r = 0.0f;
   marker.color.g = 1.0f;
