@@ -18,6 +18,8 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(Eigen REQUIRED)
 include_directories(${Eigen_INCLUDE_DIRS})
 include_directories(${EIGEN_INCLUDE_DIRS})
+option(BUILD_FREEBOT "Freebot nodes" ON)
+set(FREEBOT_INCLUDE_DIR "/usr/include" CACHE PATH "location of freebot_messages.h")
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -192,6 +194,10 @@ if(realtime-rbdl_FOUND AND rbdl_FOUND)
   target_include_directories(${PROJECT_NAME}_realtime PUBLIC ${RBDL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR})
 else()
   message("Couldn't find realtime-rbdl or rbdl")
+endif()
+
+if(BUILD_FREEBOT)
+  add_subdirectory(src/freebot)
 endif()
 
 #############
