@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find base_urdf2_description)/launch/display.launch" ns="base"/>
+     <include file="$(find freebot_urdf_description)/launch/display2.launch" ns="arm"/>
+         <node name="wrist_frame" pkg="tf2_ros" type="static_transform_publisher" 
+        args="0 0 .05 0 0 0 base_link wrist_frame" />
+</launch>
