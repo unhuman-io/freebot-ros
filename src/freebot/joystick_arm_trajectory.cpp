@@ -2,7 +2,27 @@
 
 #include <sensor_msgs/Joy.h>
 #include <trajectory_msgs/MultiDOFJointTrajectory.h>
+#include <xmlrpcpp/XmlRpcValue.h> 
 
+std::vector<trajectory_msgs::MultiDOFJointTrajectory>parse_button_param(const XmlRpc::XmlRpcValue &b) {
+    std::vector<trajectory_msgs::MultiDOFJointTrajectory> but;
+    //for (auto &t : b) {
+    for(int i=0; i<b.size(); i++) {
+        trajectory_msgs::MultiDOFJointTrajectory traj;
+        for(int j=0; j<b[i]["points"].size(); j++) {
+            geometry_msgs::Transform tr;
+            tr.translation.x = b[i]["points"][j]["transforms"][0]["translation"]["x"];
+            tr.translation.y = b[i]["points"][j]["transforms"][0]["translation"]["y"];
+            tr.translation.z = b[i]["points"][j]["transforms"][0]["translation"]["z"];
+            trajectory_msgs::MultiDOFJointTrajectoryPoint tp;
+            tp.transforms.push_back(tr);
+            traj.points.push_back(tp);
+        }
+        but.push_back(traj);
+    }
+    // std::cout << b[0]["points"][0]["transforms"][0]["translation"]["y"] << std::endl;
+    return but;
+}
 
 class Joystick {
  public:
@@ -23,15 +43,13 @@ Joystick::Joystick() {
 }
 
 void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
-    typedef std::map<std::string, double> Vector3;
-    typedef std::map<std::string, Vector3> Transform;
-    typedef std::map<std::string, std::vector<Transform>> TrajectoryPoint;
-    typedef std::map<std::string, std::vector<TrajectoryPoint>> Trajectory;
-    Trajectory b;
+    XmlRpc::XmlRpcValue b;
     nh_.getParam("/button_trajectories", b);
-    for (int i=0; i<b.size(); i++) {
+    auto but = parse_button_param(b);
+    for (int i=0; i<but.size(); i++) {
         if (joy->buttons[i]) {
-            trajectory_pub_.publish(b[i]);
+            std::cout << but[i] << std::endl;
+            trajectory_pub_.publish(but[i]);
             break;
         }
     }
