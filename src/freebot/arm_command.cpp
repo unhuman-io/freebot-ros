@@ -20,8 +20,7 @@ void ArmCommander::arm_callback(const geometry_msgs::Twist::ConstPtr& velocity) 
     command.velocity.x = velocity->linear.x;
     command.velocity.y = velocity->linear.y;
     command.velocity.z = velocity->linear.z;
-    command.velocity.ax = velocity->angular.x;
-    command.velocity.ay = velocity->angular.y;
+    command.velocity.elevation = velocity->angular.x;
     command.velocity.az = velocity->angular.z;
     motor_pub_.publish(command);
 }

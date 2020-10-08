@@ -32,8 +32,8 @@ void ArmStatusReader::timer_callback(const ros::TimerEvent& event) {
     pose.position.z = arm_status.command.position.z;
 
     tf2::Quaternion orientation;
-    orientation.setRPY(arm_status.command.position.ax,
-                                arm_status.command.position.ay,
+    orientation.setRPY(arm_status.command.position.elevation,
+                                0,
                                 arm_status.command.position.az);
     tf2::convert(orientation, pose.orientation);
     desired_goal_pub_.publish(pose);
