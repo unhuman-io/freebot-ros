@@ -1,6 +1,15 @@
 <launch>
-    <include file="$(find base_urdf2_description)/launch/display.launch" ns="base"/>
-     <include file="$(find freebot_urdf_description)/launch/display2.launch" ns="arm"/>
-         <node name="wrist_frame" pkg="tf2_ros" type="static_transform_publisher" 
-        args="0 0 .05 0 0 0 base_link wrist_frame" />
+    <group ns="base">
+        <include file="$(find base_urdf2_description)/launch/display.launch"/>
+        <include file="$(find unhuman-ros)/launch/freebot_base.launch"/>
+    </group>
+    <group ns="arm">
+         <include file="$(find freebot_urdf_description)/launch/display2.launch"/>
+         <node name="base_to_arm" pkg="tf2_ros" type="static_transform_publisher" 
+            args="0 0 0.05 1.5 0 0 base_link /sim/base_link" />
+         <include file="$(find unhuman-ros)/launch/freebot.launch"/>
+    </group>
+    <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node">
+        <param name="cmd" value="/home/lee/unhuman/freebot-realtime/buildr/src/freebot-realtime" />
+    </node>
 </launch>

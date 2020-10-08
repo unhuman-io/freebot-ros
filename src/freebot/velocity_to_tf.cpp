@@ -32,13 +32,14 @@ class VelocityToTF {
 VelocityToTF::VelocityToTF() {
   vel_sub_ = nh_.subscribe<geometry_msgs::Twist>("cmd_vel", 10, &VelocityToTF::vel_callback, this);
   timer_ = nh_.createTimer(ros::Duration(dt_), &VelocityToTF::timer_callback, this);
+  transform_.transform.rotation.w = 1;
 }
 
 void VelocityToTF::timer_callback(const ros::TimerEvent& event) {
+    transform_.header.stamp = ros::Time::now();
+    transform_.header.frame_id = "world";
+    transform_.child_frame_id = "base_link";
     if ((ros::Time::now() - last_message_time_).toSec() < 1.0) {
-      transform_.header.stamp = ros::Time::now();
-      transform_.header.frame_id = "world";
-      transform_.child_frame_id = "base_link";
       tf2::Quaternion q;
       z_sum_ += dt_*cmd_vel_.angular.z;
       q.setRPY(0, 0, z_sum_);
@@ -50,8 +51,8 @@ void VelocityToTF::timer_callback(const ros::TimerEvent& event) {
       transform_.transform.translation.z = 0.0;
 
       tf2::convert(q,transform_.transform.rotation);
-      tf_pub_.sendTransform(transform_);
     }
+    tf_pub_.sendTransform(transform_);
 }
 
 void VelocityToTF::vel_callback(const geometry_msgs::Twist::ConstPtr& msg) {

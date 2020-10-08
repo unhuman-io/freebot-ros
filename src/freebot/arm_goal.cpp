@@ -17,7 +17,7 @@ class ArmGoal {
 
 
 ArmGoal::ArmGoal() {
-  goal_sub_ = nh_.subscribe<geometry_msgs::Pose>("/desired/goal", 1, &ArmGoal::goal_callback, this);
+  goal_sub_ = nh_.subscribe<geometry_msgs::Pose>("desired/goal", 1, &ArmGoal::goal_callback, this);
   marker_pub_ = nh_.advertise<visualization_msgs::Marker>("goal_marker", 1);
 }
 

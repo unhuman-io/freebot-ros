@@ -44,7 +44,7 @@ Joystick::Joystick() {
 
 void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
     XmlRpc::XmlRpcValue b;
-    nh_.getParam("/button_trajectories", b);
+    nh_.getParam("button_trajectories", b);
     auto but = parse_button_param(b);
     for (int i=0; i<but.size(); i++) {
         if (joy->buttons[i]) {

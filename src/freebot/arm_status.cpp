@@ -10,8 +10,8 @@
 class ArmStatusReader {
  public:   
     ArmStatusReader() {
-        desired_goal_pub_ = nh_.advertise<geometry_msgs::Pose>("/desired/goal", 1, true);
-        desired_joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("/desired/joint_states", 1, true);
+        desired_goal_pub_ = nh_.advertise<geometry_msgs::Pose>("desired/goal", 1, true);
+        desired_joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("desired/joint_states", 1, true);
         timer_ = nh_.createTimer(ros::Duration(0.01), &ArmStatusReader::timer_callback, this);
     }
  private:
