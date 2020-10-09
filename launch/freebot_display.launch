@@ -8,6 +8,12 @@
          <node name="base_to_arm" pkg="tf2_ros" type="static_transform_publisher" 
             args="0 0 0.08 1.5 0 0 base_link /sim/base_link" />
          <include file="$(find unhuman-ros)/launch/freebot.launch"/>
+         <include file="$(find grip_urdf1_description)/launch/display.launch" ns="gripper"/>
+         <node name="joystick_gripper" pkg="unhuman-ros" type="joystick_gripper" ns="gripper">
+            <remap from="/arm/gripper/joy" to="/arm/joy"/>
+         </node>
+         <node name="gripper_transform" pkg="tf2_ros" type="static_transform_publisher" 
+            args="0 -.02 0 3.14 -1.57 0 sim/OS_Tool_Adapter_1 gripper/base_link" />
     </group>
     <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node" output="screen">
         <param name="cmd" value="/home/lee/unhuman/freebot-realtime/buildr/src/freebot-realtime" />

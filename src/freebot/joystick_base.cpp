@@ -41,7 +41,7 @@ void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
 
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "joystick");
+    ros::init(argc, argv, "joystick_base");
     Joystick joystick;
 
     ros::spin();

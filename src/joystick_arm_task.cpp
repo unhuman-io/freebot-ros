@@ -40,7 +40,7 @@ void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
     velocity.linear.z = speed*joy->axes[7];
     velocity.angular.x = speed*speed_wrist*joy->axes[4];
     velocity.angular.y = 0;
-    velocity.angular.z = speed*speed_wrist*joy->axes[3];
+    velocity.angular.z = -speed*speed_wrist*joy->axes[3];
     velocity_pub_.publish(velocity);
   }
 }

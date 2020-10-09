@@ -13,5 +13,6 @@ freebot_node(arm_trajectories)
 freebot_node(joystick_arm_trajectory)
 freebot_node(joystick_base)
 freebot_node(velocity_to_tf)
+freebot_node(joystick_gripper)
 #freebot_node(arm_trajectory_gen)
 
