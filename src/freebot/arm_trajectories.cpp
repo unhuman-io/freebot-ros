@@ -24,9 +24,13 @@ void ArmTrajectories::arm_callback(const trajectory_msgs::MultiDOFJointTrajector
     trajectory.position_trajectory.num_points = std::min((int) trajectory_msg->points.size(), POSITION_TRAJECTORY_MAX_POINTS); // trajectory_msg->points.size()
     for (int i=0; i<trajectory.position_trajectory.num_points; i++) {
         Position &position = trajectory.position_trajectory.trajectory_point[i].position;
+        Velocity &velocity = trajectory.position_trajectory.trajectory_point[i].velocity;
         position.x = trajectory_msg->points[i].transforms[0].translation.x;
         position.y = trajectory_msg->points[i].transforms[0].translation.y;
         position.z = trajectory_msg->points[i].transforms[0].translation.z;
+        velocity.x = trajectory_msg->points[i].velocities[0].linear.x;
+        velocity.y = trajectory_msg->points[i].velocities[0].linear.y;
+        velocity.z = trajectory_msg->points[i].velocities[0].linear.z;
     }
     motor_pub_.publish(trajectory);
 }

@@ -25,8 +25,16 @@ Joystick::Joystick() {
 void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
   geometry_msgs::Twist cmd_vel;
   if (joy->buttons[5]) { // right upper trigger
-    cmd_vel.linear.x = joy->axes[1];
-    cmd_vel.angular.z = joy->axes[0];
+    double s1 = 0;
+    double s2 = 0;
+    nh_.getParam("speed_base_normal", s1);
+    nh_.getParam("speed_base_button", s2);
+    double speed = 1;
+    if (s1 && s2) {
+      speed = joy->buttons[4] ? s2 : s1;
+    }
+    cmd_vel.linear.x = speed*joy->axes[1];
+    cmd_vel.angular.z = speed*joy->axes[0];
     joint_pub_.publish(cmd_vel);
   }
 }

@@ -16,6 +16,12 @@ std::vector<trajectory_msgs::MultiDOFJointTrajectory>parse_button_param(const Xm
             tr.translation.z = b[i]["points"][j]["transforms"][0]["translation"]["z"];
             trajectory_msgs::MultiDOFJointTrajectoryPoint tp;
             tp.transforms.push_back(tr);
+
+            geometry_msgs::Twist vel;
+            vel.linear.x = b[i]["points"][j]["velocities"][0]["linear"]["x"];
+            vel.linear.y = b[i]["points"][j]["velocities"][0]["linear"]["y"];
+            vel.linear.z = b[i]["points"][j]["velocities"][0]["linear"]["z"];
+            tp.velocities.push_back(vel);
             traj.points.push_back(tp);
         }
         but.push_back(traj);

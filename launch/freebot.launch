@@ -1,5 +1,6 @@
 <launch>
     <rosparam command="load" file="$(find unhuman-ros)/src/freebot/trajectories.yaml" />
+    <rosparam command="load" file="$(find unhuman-ros)/src/freebot/joystick.yaml" />
     <node name="joy" pkg="joy" type="joy_node"/>
     <node name="joystick_arm_task" pkg="unhuman-ros" type="joystick_arm_task"/>
     <node name="arm_command" pkg="unhuman-ros" type="arm_command"/>

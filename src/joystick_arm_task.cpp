@@ -25,13 +25,20 @@ Joystick::Joystick() {
 void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
   if (!joy->buttons[5]) { // right upper trigger
     geometry_msgs::Twist velocity;
-  //  pose.header.stamp = ros::Time::now();
-    velocity.linear.x = joy->axes[0];
-    velocity.linear.y = -joy->axes[1];
-    velocity.linear.z = joy->axes[7];
-    velocity.angular.x = joy->axes[4];
+    double s1 = 0;
+    double s2 = 0;
+    nh_.getParam("speed_normal", s1);
+    nh_.getParam("speed_button", s2);
+    double speed = 1;
+    if (s1 && s2) {
+      speed = joy->buttons[4] ? s2 : s1;
+    }
+    velocity.linear.x = speed*joy->axes[0];
+    velocity.linear.y = -speed*joy->axes[1];
+    velocity.linear.z = speed*joy->axes[7];
+    velocity.angular.x = speed*joy->axes[4];
     velocity.angular.y = 0;
-    velocity.angular.z = joy->axes[3];
+    velocity.angular.z = speed*joy->axes[3];
     velocity_pub_.publish(velocity);
   }
 }
