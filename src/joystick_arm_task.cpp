@@ -27,8 +27,10 @@ void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
     geometry_msgs::Twist velocity;
     double s1 = 0;
     double s2 = 0;
+    double speed_wrist = 1;
     nh_.getParam("speed_normal", s1);
     nh_.getParam("speed_button", s2);
+    nh_.getParam("speed_wrist", speed_wrist);
     double speed = 1;
     if (s1 && s2) {
       speed = joy->buttons[4] ? s2 : s1;
@@ -36,9 +38,9 @@ void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
     velocity.linear.x = speed*joy->axes[0];
     velocity.linear.y = -speed*joy->axes[1];
     velocity.linear.z = speed*joy->axes[7];
-    velocity.angular.x = speed*joy->axes[4];
+    velocity.angular.x = speed*speed_wrist*joy->axes[4];
     velocity.angular.y = 0;
-    velocity.angular.z = speed*joy->axes[3];
+    velocity.angular.z = speed*speed_wrist*joy->axes[3];
     velocity_pub_.publish(velocity);
   }
 }
