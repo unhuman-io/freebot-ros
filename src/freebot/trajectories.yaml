@@ -1,4 +1,4 @@
 button_trajectories: [
-  {points: [{transforms: [ {translation: {y: -0.3, z: .3}} ],  velocities: [{linear: {y: 0.2}}] }, {transforms: [ {translation: {y: -0.15, z: .3}} ], velocities: [{linear: {z: -0.2}}] }, {transforms: [ {translation: {y: -0.15, z: .1}} ]}]},
-  {points: [{transforms: [ {translation: {y: -0.15, z: .3}} ]}, {transforms: [ {translation: {y: -0.3, z: .3}} ]}, {transforms: [ {translation: {y: -0.45, z: -0.2}} ]}]},
+  {points: [{transforms: [ {translation: {y: -0.3, z: .3}} ],  velocities: [{linear: {y: 0.2}}] }, {transforms: [ {translation: {y: -0.15, z: .3}} ], velocities: [{linear: {z: -0.2}}] }, {transforms: [ {translation: {y: -0.15, z: .05}} ]}]},
+  {points: [{transforms: [ {translation: {y: -0.15, z: .3}} ],  velocities: [{linear: {y: -0.2}}] }, {transforms: [ {translation: {y: -0.3, z: .3}} ],  velocities: [{linear: {y: -0.05, z: -0.2}}] }, {transforms: [ {translation: {y: -0.45, z: 0.0}} ]}]},
 ]

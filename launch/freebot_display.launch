@@ -6,7 +6,7 @@
     <group ns="arm">
          <include file="$(find freebot_urdf_description)/launch/display2.launch"/>
          <node name="base_to_arm" pkg="tf2_ros" type="static_transform_publisher" 
-            args="0 0 0.05 1.5 0 0 base_link /sim/base_link" />
+            args="0 0 0.08 1.5 0 0 base_link /sim/base_link" />
          <include file="$(find unhuman-ros)/launch/freebot.launch"/>
     </group>
     <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node" output="screen">
