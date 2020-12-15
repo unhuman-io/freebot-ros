@@ -12,6 +12,7 @@ class ArmStatusReader {
     ArmStatusReader() {
         desired_goal_pub_ = nh_.advertise<geometry_msgs::Pose>("desired/goal", 1, true);
         desired_joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("desired/joint_states", 1, true);
+        real_joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("real/joint_states", 1, true);
         timer_ = nh_.createTimer(ros::Duration(0.01), &ArmStatusReader::timer_callback, this);
     }
  private:
@@ -19,6 +20,7 @@ class ArmStatusReader {
     ros::NodeHandle nh_;
     ros::Publisher desired_goal_pub_;
     ros::Publisher desired_joint_state_pub_;
+    ros::Publisher real_joint_state_pub_;
     MotorSubscriber<ArmStatus> motor_sub_ = {"arm_status"};
     ros::Timer timer_;
 };
@@ -45,6 +47,14 @@ void ArmStatusReader::timer_callback(const ros::TimerEvent& event) {
         desired_joint_state.position.push_back(arm_status.command.joint_position[i]);
     }
     desired_joint_state_pub_.publish(desired_joint_state);
+
+    sensor_msgs::JointState real_joint_state = {};
+    real_joint_state.name = {"j0","j1", "j2", "j3", "j4"};
+    real_joint_state.header.stamp = ros::Time::now();
+    for (int i=0; i<5; i++) {
+        real_joint_state.position.push_back(arm_status.measured.joint_position[i]);
+    }
+    real_joint_state_pub_.publish(real_joint_state);
 }
 
 int main(int argc, char **argv) {
