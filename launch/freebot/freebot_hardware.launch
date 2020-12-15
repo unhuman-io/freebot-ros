@@ -1,0 +1,9 @@
+<launch>
+    <group ns="arm">
+        <node name="arm_command" pkg="unhuman-ros" type="arm_command"/>
+        <node name="arm_status" pkg="unhuman-ros" type="arm_status"/>
+        <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node" output="screen">
+            <param name="cmd" value="/home/lee/unhuman/freebot-realtime/buildr/src/freebot-realtime" />
+        </node>
+    </group>
+</launch>

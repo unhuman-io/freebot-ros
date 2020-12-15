@@ -1,9 +1,0 @@
-<launch>
-    <rosparam command="load" file="$(find unhuman-ros)/src/freebot/joystick.yaml" />
-    <node name="joy" pkg="joy" type="joy_node"/>
-    <node name="joystick_base" pkg="unhuman-ros" type="joystick_base">
-        <!-- <remap from="cmd_vel" to="/turtle1/cmd_vel" /> -->
-    </node>
-    <!-- <node name="turtlesim_node" pkg="turtlesim" type="turtlesim_node"/> -->
-    <node name="velocity_to_tf" pkg="unhuman-ros" type="velocity_to_tf"/>
-</launch>
