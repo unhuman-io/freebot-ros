@@ -1,0 +1,18 @@
+macro(freebot_node node_name)
+    add_executable(${PROJECT_NAME}_${node_name} ${node_name}.cpp)
+    set_target_properties(${PROJECT_NAME}_${node_name} PROPERTIES OUTPUT_NAME ${node_name} PREFIX "")
+    add_dependencies(${PROJECT_NAME}_${node_name} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+    target_link_libraries(${PROJECT_NAME}_${node_name} ${catkin_LIBRARIES} rt)
+    target_include_directories(${PROJECT_NAME}_${node_name} PUBLIC ${FREEBOT_INCLUDE_DIR})
+endmacro()
+
+freebot_node(arm_command)
+freebot_node(arm_status)
+freebot_node(arm_goal)
+freebot_node(arm_trajectories)
+freebot_node(joystick_arm_trajectory)
+freebot_node(joystick_base)
+freebot_node(velocity_to_tf)
+freebot_node(joystick_gripper)
+#freebot_node(arm_trajectory_gen)
+

@@ -8,7 +8,6 @@ class Realtime {
   ~Realtime() {
     motor_manager_.set_command_mode(ModeDesired::OPEN);
     motor_manager_.write_saved_commands();
-    motor_manager_.close();
   }
 
  private:
@@ -27,7 +26,6 @@ Realtime::Realtime() {
   actuator_pub_ = nh_.advertise<sensor_msgs::JointState>("actuator_states_measured", 1, true);
   actuator_sub_ = nh_.subscribe<sensor_msgs::JointState>("actuator_states", 10, &Realtime::callback, this);
   motor_manager_.get_motors_by_name(actuator_names_);
-  motor_manager_.open();
 }
 
 void Realtime::callback(const sensor_msgs::JointState::ConstPtr& actuator_state) {

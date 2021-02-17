@@ -18,6 +18,8 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(Eigen REQUIRED)
 include_directories(${Eigen_INCLUDE_DIRS})
 include_directories(${EIGEN_INCLUDE_DIRS})
+option(BUILD_FREEBOT "Freebot nodes" ON)
+set(FREEBOT_INCLUDE_DIR "/usr/include" CACHE PATH "location of freebot_messages.h")
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -146,6 +148,21 @@ set_target_properties(${PROJECT_NAME}_joystick PROPERTIES OUTPUT_NAME joystick P
 add_dependencies(${PROJECT_NAME}_joystick ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_joystick ${catkin_LIBRARIES})
 
+add_executable(${PROJECT_NAME}_joystick_arm src/joystick_arm.cpp)
+set_target_properties(${PROJECT_NAME}_joystick_arm PROPERTIES OUTPUT_NAME joystick_arm PREFIX "")
+add_dependencies(${PROJECT_NAME}_joystick_arm ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joystick_arm ${catkin_LIBRARIES})
+
+add_executable(${PROJECT_NAME}_joystick_goal src/joystick_goal.cpp)
+set_target_properties(${PROJECT_NAME}_joystick_goal PROPERTIES OUTPUT_NAME joystick_goal PREFIX "")
+add_dependencies(${PROJECT_NAME}_joystick_goal ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joystick_goal ${catkin_LIBRARIES})
+
+add_executable(${PROJECT_NAME}_joystick_arm_task src/joystick_arm_task.cpp)
+set_target_properties(${PROJECT_NAME}_joystick_arm_task PROPERTIES OUTPUT_NAME joystick_arm_task PREFIX "")
+add_dependencies(${PROJECT_NAME}_joystick_arm_task ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_joystick_arm_task ${catkin_LIBRARIES})
+
 add_executable(${PROJECT_NAME}_joint_to_actuator src/joint_to_actuator.cpp)
 set_target_properties(${PROJECT_NAME}_joint_to_actuator PROPERTIES OUTPUT_NAME joint_to_actuator PREFIX "")
 add_dependencies(${PROJECT_NAME}_joint_to_actuator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -177,6 +194,10 @@ if(realtime-rbdl_FOUND AND rbdl_FOUND)
   target_include_directories(${PROJECT_NAME}_realtime PUBLIC ${RBDL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR})
 else()
   message("Couldn't find realtime-rbdl or rbdl")
+endif()
+
+if(BUILD_FREEBOT)
+  add_subdirectory(src/freebot)
 endif()
 
 #############
