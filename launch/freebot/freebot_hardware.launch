@@ -6,7 +6,7 @@
         <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node" output="screen">
             <param name="cmd" value="../../../freebot-realtime/build/src/freebot-realtime" />
         </node>
-        <node name="base_command" pkg="unhuman-ros" type="base_command"/>
-        <node name="base_status" pkg="unhuman-ros" type="base_status"/>
     </group>
+    <node name="base_command" pkg="unhuman-ros" type="base_command"/>
+    <node name="base_status" pkg="unhuman-ros" type="base_status"/>
 </launch>
