@@ -1,12 +1,12 @@
 <launch>
     <group ns="arm">
-        <node name="arm_command" pkg="unhuman-ros" type="arm_command"/>
-        <node name="arm_status" pkg="unhuman-ros" type="arm_status"/>
-        <node name="arm_trajectories" pkg="unhuman-ros" type="arm_trajectories"/>
+        <node name="arm_command" pkg="freebot-ros" type="arm_command"/>
+        <node name="arm_status" pkg="freebot-ros" type="arm_status"/>
+        <node name="arm_trajectories" pkg="freebot-ros" type="arm_trajectories"/>
         <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node" output="screen">
             <param name="cmd" value="../../../freebot-realtime/build/src/freebot-realtime" />
         </node>
     </group>
-    <node name="base_command" pkg="unhuman-ros" type="base_command"/>
-    <node name="base_status" pkg="unhuman-ros" type="base_status"/>
+    <node name="base_command" pkg="freebot-ros" type="base_command"/>
+    <node name="base_status" pkg="freebot-ros" type="base_status"/>
 </launch>

@@ -1,6 +1,6 @@
 <launch>
-    <rosparam command="load" file="$(find unhuman-ros)/src/freebot/joystick.yaml" />
+    <rosparam command="load" file="$(find freebot-ros)/src/freebot/joystick.yaml" />
     <node name="joy" pkg="joy" type="joy_node"/>
-    <node name="joystick_base" pkg="unhuman-ros" type="joystick_base" />
-    <node name="velocity_to_tf" pkg="unhuman-ros" type="velocity_to_tf"/>
+    <node name="joystick_base" pkg="freebot-ros" type="joystick_base" />
+    <node name="velocity_to_tf" pkg="freebot-ros" type="velocity_to_tf"/>
 </launch>

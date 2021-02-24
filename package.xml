@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>unhuman-ros</name>
+  <name>freebot-ros</name>
   <version>0.0.0</version>
-  <description>The unhuman-ros package</description>
+  <description>The freebot-ros package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

@@ -1,4 +1,4 @@
 <launch>
     <node name="joy" pkg="joy" type="joy_node"/>
-    <node name="joystick_arm" pkg="unhuman-ros" type="joystick_arm"/>
+    <node name="joystick_arm" pkg="freebot-ros" type="joystick_arm"/>
 </launch>
