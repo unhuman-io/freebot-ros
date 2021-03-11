@@ -1,5 +1,7 @@
 speed_normal: .1
 speed_button: .5
 speed_wrist: 5
-speed_base_normal: 1
-speed_base_button: 5
+speed_base_normal: 1.5
+speed_base_button: 8
+speed_base_rotate_normal_mult: 0.5
+speed_base_rotate_button_mult: 0.15

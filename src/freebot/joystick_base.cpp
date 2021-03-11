@@ -23,20 +23,23 @@ Joystick::Joystick() {
 }
 
 void Joystick::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
-  geometry_msgs::Twist cmd_vel;
+  geometry_msgs::Twist cmd_vel = {};
   if (joy->buttons[5]) { // right upper trigger
     double s1 = 0;
     double s2 = 0;
+    double sr1 = .5;
+    double sr2 = .3;
     nh_.getParam("speed_base_normal", s1);
     nh_.getParam("speed_base_button", s2);
-    double speed = 1;
-    if (s1 && s2) {
-      speed = joy->buttons[4] ? s2 : s1;
-    }
+    nh_.getParam("speed_base_rotate_normal_mult", sr1);
+    nh_.getParam("speed_base_rotate_button_mult", sr2);
+    double speed, speed_rotate_mult;
+    speed = joy->buttons[4] ? s2 : s1;
+    speed_rotate_mult = joy->buttons[4] ? sr2 : sr1;
     cmd_vel.linear.x = speed*joy->axes[1];
-    cmd_vel.angular.z = speed*joy->axes[0];
-    joint_pub_.publish(cmd_vel);
+    cmd_vel.angular.z = speed*joy->axes[0]*speed_rotate_mult;
   }
+  joint_pub_.publish(cmd_vel);
 }
 
 
