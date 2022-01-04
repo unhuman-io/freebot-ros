@@ -1,10 +1,13 @@
 <launch>
     <group ns="arm">
+        <arg name="realtime_dir" value="../../../freebot-realtime/" />
+        <arg name="realtime_exec" value="$(arg realtime_dir)/build/src/freebot-realtime" />
+        <arg name="realtime_param" value="$(arg realtime_dir)/config/param.yaml" />
         <node name="arm_command" pkg="freebot-ros" type="arm_command"/>
         <node name="arm_status" pkg="freebot-ros" type="arm_status"/>
         <node name="arm_trajectories" pkg="freebot-ros" type="arm_trajectories"/>
         <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node" output="screen">
-            <param name="cmd" value="../../../freebot-realtime/build/src/freebot-realtime" />
+            <param name="cmd" value="$(arg realtime_exec) $(arg realtime_param)" />
         </node>
     </group>
     <node name="base_command" pkg="freebot-ros" type="base_command"/>
