@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(freebot-ros)
+project(obot-ros)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -18,8 +18,8 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(Eigen REQUIRED)
 include_directories(${Eigen_INCLUDE_DIRS})
 include_directories(${EIGEN_INCLUDE_DIRS})
-option(BUILD_FREEBOT "Freebot nodes" ON)
-set(FREEBOT_INCLUDE_DIR "/usr/include" CACHE PATH "location of freebot_messages.h")
+option(BUILD_OBOT "Obot nodes" ON)
+set(OBOT_INCLUDE_DIR "/usr/include" CACHE PATH "location of obot_messages.h")
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -196,8 +196,8 @@ else()
   message("Couldn't find realtime-rbdl or rbdl")
 endif()
 
-if(BUILD_FREEBOT)
-  add_subdirectory(src/freebot)
+if(BUILD_OBOT)
+  add_subdirectory(src/obot)
 endif()
 
 #############

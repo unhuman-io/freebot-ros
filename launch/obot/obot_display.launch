@@ -1,15 +1,15 @@
 <launch>
     <group ns="base">
         <include file="$(find base_urdf2_description)/launch/display.launch"/>
-        <include file="$(find freebot-ros)/launch/freebot/freebot_base.launch"/>
+        <include file="$(find obot-ros)/launch/obot/obot_base.launch"/>
     </group>
     <group ns="arm">
-         <include file="$(find freebot_urdf_description)/launch/display2.launch"/>
+         <include file="$(find obot_urdf_description)/launch/display2.launch"/>
          <node name="base_to_arm" pkg="tf2_ros" type="static_transform_publisher" 
             args="0 0 0.08 1.5 0 0 base_link /sim/base_link" />
-         <include file="$(find freebot-ros)/launch/freebot/freebot.launch"/>
+         <include file="$(find obot-ros)/launch/obot/obot.launch"/>
          <include file="$(find grip_urdf1_description)/launch/display.launch" ns="gripper"/>
-         <node name="joystick_gripper" pkg="freebot-ros" type="joystick_gripper" ns="gripper">
+         <node name="joystick_gripper" pkg="obot-ros" type="joystick_gripper" ns="gripper">
             <remap from="/arm/gripper/joy" to="/arm/joy"/>
          </node>
          <node name="gripper_transform" pkg="tf2_ros" type="static_transform_publisher" 

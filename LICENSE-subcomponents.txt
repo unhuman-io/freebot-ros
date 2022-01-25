@@ -1,4 +1,4 @@
-freebot-ros: [required, Unlicense, https://github.com/unhuman-io/freebot-ros/raw/main/UNLICENSE.txt]
+obot-ros: [required, Unlicense, https://github.com/unhuman-io/obot-ros/raw/main/UNLICENSE.txt]
     ros: [required, BSD3, https://www.ros.org/is-ros-for-me/]
     aliencontrol: [required, MIT, https://github.com/acschaefer/aliencontrol/raw/master/LICENSE]
-    freebot-urdf: [requeired, Unlicense, https://github.com/unhuman-io/freebot-urdf/raw/main/UNLICENSE.txt]
+    obot-urdf: [requeired, Unlicense, https://github.com/unhuman-io/obot-urdf/raw/main/UNLICENSE.txt]

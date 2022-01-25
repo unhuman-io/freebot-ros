@@ -1,7 +1,7 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Pose.h>
 #include <sensor_msgs/JointState.h>
-#include <freebot_messages.h>
+#include <obot_messages.h>
 #include <motor_subscriber.h>
 #include <tf2/LinearMath/Quaternion.h>
 

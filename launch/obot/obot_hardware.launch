@@ -1,0 +1,15 @@
+<launch>
+    <group ns="arm">
+        <arg name="realtime_dir" value="../../../obot-realtime/" />
+        <arg name="realtime_exec" value="$(arg realtime_dir)/build/src/obot-realtime" />
+        <arg name="realtime_param" value="$(arg realtime_dir)/config/param.yaml" />
+        <node name="arm_command" pkg="obot-ros" type="arm_command"/>
+        <node name="arm_status" pkg="obot-ros" type="arm_status"/>
+        <node name="arm_trajectories" pkg="obot-ros" type="arm_trajectories"/>
+        <node name="arm_realtime" pkg="aliencontrol" type="aliencontrol" cwd="node" output="screen">
+            <param name="cmd" value="$(arg realtime_exec) $(arg realtime_param)" />
+        </node>
+    </group>
+    <node name="base_command" pkg="obot-ros" type="base_command"/>
+    <node name="base_status" pkg="obot-ros" type="base_status"/>
+</launch>

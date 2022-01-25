@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 #include <trajectory_msgs/MultiDOFJointTrajectory.h>
-#include <freebot_messages.h>
+#include <obot_messages.h>
 #include <motor_publisher.h>
 #include <algorithm>
 

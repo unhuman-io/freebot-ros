@@ -1,0 +1,11 @@
+<launch>
+    <rosparam command="load" file="$(find obot-ros)/src/obot/trajectories.yaml" />
+   
+        <group ns="arm">
+    <node name="joy" pkg="joy" type="joy_node"/>
+        <rosparam command="load" file="$(find obot-ros)/src/obot/joystick.yaml" />
+        <node name="joystick_arm_task" pkg="obot-ros" type="joystick_arm_task"/> 
+        <node name="arm_goal" pkg="obot-ros" type="arm_goal"/>
+        <node name="joystick_trajectory" pkg="obot-ros" type="joystick_arm_trajectory"/>
+    </group>
+</launch>

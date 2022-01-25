@@ -1,0 +1,6 @@
+<launch>
+    <rosparam command="load" file="$(find obot-ros)/src/obot/joystick.yaml" />
+    <node name="joy" pkg="joy" type="joy_node"/>
+    <node name="joystick_base" pkg="obot-ros" type="joystick_base" />
+    <node name="velocity_to_tf" pkg="obot-ros" type="velocity_to_tf"/>
+</launch>
